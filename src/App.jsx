@@ -1,33 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import {Route, Routes} from "react-router-dom";
+import './index.css';
+import SignupPage from "@/pages/SignupPage/index.jsx";
+import PostForm from "@/components/PostForm/index.jsx";
+import MainPage from "@/pages/MainPage/index.jsx";
+import Header from "@/components/Header/index.jsx";
+import BoardPage from "@/pages/BoardPage/index.jsx";
+import LoginPage from "@/pages/LoginPage/index.jsx";
+import PostDetailPage from "@/pages/PostDetailPage/index.jsx";
+import MyPage from "@/pages/MyPage/index.jsx";
+import Footer from "@/components/Footer/index.jsx";
+import ErrorPage from "@/pages/ErrorPage/index.jsx";
+import ChangePassword from "@/pages/MyPage/ChangePassword.jsx";
+import EditProfile from "@/pages/MyPage/EditProfile.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Header />
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/signup" element={<SignupPage/>}/>
+        <Route path="/login" element={<LoginPage />}/>
+        <Route path="/:boardId" element={<BoardPage />}/>
+        <Route path="/:boardId/posts/:postId" element={<PostDetailPage />}/>
+        <Route path="/:boardId/new" element={<PostForm />} />
+        <Route path="/:boardId/posts/:postId/edit" element={<PostForm mode="edit" />} />
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/mypage/change-password" element={<ChangePassword />} />
+        <Route path="/mypage/edit-profile" element={<EditProfile />} />
+        <Route path="/*" element={<ErrorPage />} />
+      </Routes>
+      <Footer />
     </>
   )
 }
